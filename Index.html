@@ -41,7 +41,8 @@
   --frame-bg:#eceae4;--frame-border:rgba(0,0,0,.15);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;font-weight:300;-webkit-font-smoothing:antialiased;transition:background var(--ease),color var(--ease);overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;font-weight:300;-webkit-font-smoothing:antialiased;transition:background var(--ease),color var(--ease);overflow-x:hidden;overflow-wrap:break-word;word-wrap:break-word}
+img,video,canvas,svg{max-width:100%}
 a{color:inherit;text-decoration:none}
 ::selection{background:rgba(128,128,128,.18)}
 
@@ -51,7 +52,7 @@ nav.scrolled{border-color:var(--border2);background:var(--nav-bg);backdrop-filte
 .nav-logo{font-family:var(--serif);font-size:1.05rem;cursor:pointer;flex-shrink:0;transition:opacity .2s}
 .nav-logo:hover{opacity:.5}
 .nav-tabs{display:flex;border:1px solid var(--border2);border-radius:100px;overflow:hidden;flex-shrink:0}
-.nav-tab{padding:.4rem .9rem;font-size:11.5px;color:var(--muted);cursor:pointer;transition:background .2s,color .2s;letter-spacing:.02em;white-space:nowrap}
+.nav-tab{padding:.4rem .9rem;font-size:11.5px;color:var(--muted);cursor:pointer;transition:background .2s,color .2s;letter-spacing:.02em;white-space:nowrap;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .nav-tab:hover{color:var(--text)}
 .nav-tab.active{background:var(--accent2);color:var(--text)}
 .nav-right{display:flex;gap:.6rem;align-items:center;flex-shrink:0}
@@ -225,6 +226,7 @@ hr.div{border:none;border-top:1px solid var(--border)}
   display:flex;align-items:center;gap:12px;
   cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.5);
   transition:all .3s ease;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
 }
 .chat-float:hover{border-color:rgba(255,255,255,.18);transform:translateY(-2px)}
 .chat-float-dot{width:6px;height:6px;background:#34d399;border-radius:50%;box-shadow:0 0 8px rgba(52,211,153,.5)}
@@ -296,7 +298,7 @@ hr.div{border:none;border-top:1px solid var(--border)}
 .novapad-wrapper{background:rgba(255,255,255,0.015);border:1px solid var(--border2);border-radius:12px;padding:3rem 2rem;margin-bottom:4rem;display:flex;flex-direction:column;align-items:center;}
 .novapad-title{font-family:var(--mono);font-size:11px;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2.5rem;text-align:center;}
 .novapad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;max-width:500px;margin:0 auto;}
-.nova-pad{width:70px;height:70px;background:#0d0d12;border:1px solid rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);cursor:pointer;transition:all .1s ease;user-select:none;box-shadow:inset 0 0 10px rgba(0,0,0,.8),0 5px 15px rgba(0,0,0,.5);}
+.nova-pad{width:70px;height:70px;background:#0d0d12;border:1px solid rgba(255,255,255,.08);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.2);cursor:pointer;transition:all .1s ease;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 0 10px rgba(0,0,0,.8),0 5px 15px rgba(0,0,0,.5);}
 .nova-pad:hover{background:#121218;border-color:rgba(255,255,255,.15);}
 .nova-pad.active{background:rgba(16,185,129,.15);border-color:#4ade80;color:#fff;box-shadow:inset 0 0 20px rgba(16,185,129,.4),0 0 20px rgba(16,185,129,.3);transform:scale(.95);}
 .creative-media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem;margin-bottom:4rem}
@@ -333,34 +335,260 @@ hr.div{border:none;border-top:1px solid var(--border)}
 footer{border-top:1px solid var(--border);padding:1.5rem var(--pad);display:flex;justify-content:space-between;align-items:center}
 footer p{font-family:var(--mono);font-size:10.5px;color:var(--muted2)}
 
-/* ── RESPONSIVE ── */
+/* ══════════════════════════════════════════
+   RESPONSIVE — Full System
+   Breakpoints: 1024 · 768 · 600 · 480 · 380
+   ══════════════════════════════════════════ */
+
+/* ── 1024px: Tablet landscape ── */
 @media(max-width:1024px){
   .chapter{grid-template-columns:140px 1fr;gap:2rem}
   .skill-rect{grid-template-columns:130px 1fr}
-  .about-photo-section{grid-template-columns:220px 1fr;gap:2.5rem}
+  .about-photo-section{grid-template-columns:200px 1fr;gap:2.5rem}
+  .project-grid{gap:4rem}
+  .project-card{grid-template-columns:1fr 1fr;gap:2.5rem}
 }
+
+/* ── 768px: Tablet portrait ── */
 @media(max-width:768px){
-  nav{padding:.8rem 1.25rem}
-  .nav-tab{padding:.35rem .65rem;font-size:11px}
+
+  /* Nav */
+  nav{padding:.75rem 1rem;gap:.75rem}
+  .nav-logo{font-size:.95rem}
+  .nav-tab{padding:.35rem .6rem;font-size:10.5px}
   .nav-cta{display:none}
-  .section,.section-wide{padding:3.5rem 1.25rem}
-  .chapter{grid-template-columns:1fr;gap:.75rem}
+  .icon-btn{width:28px;height:28px;font-size:12px}
+
+  /* Layout */
+  .section,.section-wide{padding:3rem 1.25rem}
+  .hero{padding:6.5rem 1.25rem 3.5rem}
+  .hero h1{font-size:clamp(2.6rem,8vw,3.8rem);margin-bottom:1.5rem}
+  .hero-bio{font-size:14px;margin-bottom:2rem;max-width:100%}
+  .hero-actions{gap:1rem}
+  .btn-pill{font-size:11.5px;padding:8px 16px}
+
+  /* About hero */
+  .about-page-hero{padding:6rem 1.25rem 3rem;min-height:auto}
+  .about-page-hero h2{font-size:clamp(2rem,7vw,3rem)}
+
+  /* About photo + bio */
+  .about-photo-section{
+    grid-template-columns:1fr;
+    padding:0 1.25rem 3rem;
+    gap:2rem
+  }
+  .photo-frame{
+    max-width:200px;
+    aspect-ratio:3/4;
+    margin:0 auto
+  }
+  .about-bio-text{padding-top:0}
+
+  /* Chapters */
+  .chapter{grid-template-columns:1fr;gap:.6rem}
+  .chapter-label{padding-top:0;margin-bottom:.15rem}
+  .about-chapters{padding:0 1.25rem 3rem}
+
+  /* Skills */
   .skill-rect{grid-template-columns:1fr}
-  .skill-rect-cat{border-right:none;border-bottom:1px solid var(--border);padding:.75rem 1.25rem}
+  .skill-rect-cat{
+    border-right:none;
+    border-bottom:1px solid var(--border);
+    padding:.75rem 1.25rem
+  }
   .skill-rect-vals{padding:.75rem 1.25rem}
+
+  /* Edu rects */
+  .edu-rect{flex-direction:column;align-items:flex-start;gap:.4rem;padding:1rem 1.25rem}
+  .edu-rect-yr{align-self:flex-end;margin-top:.25rem}
+
+  /* Contact rects */
+  .ct-rect{flex-direction:column;align-items:flex-start;gap:.35rem;padding:1rem 1.25rem}
+
+  /* Project cards */
+  .project-grid{gap:3rem}
+  .project-card{
+    grid-template-columns:1fr;
+    gap:1.5rem
+  }
+  .project-visual{aspect-ratio:16/9}
+  .project-title{font-size:clamp(1.5rem,5vw,1.9rem)}
+  .project-description{font-size:13px}
+
+  /* Timeline */
+  .timeline-node{padding-left:1.5rem;padding-bottom:2.5rem}
+  .node-role{font-size:clamp(1.3rem,4.5vw,1.6rem)}
+
+  /* Personal page */
+  .novapad-wrapper{padding:2rem 1.25rem}
+  .novapad-grid{grid-template-columns:repeat(4,1fr);gap:8px;max-width:100%}
+  .nova-pad{width:auto;height:60px;font-size:9px}
+  .creative-media-grid{grid-template-columns:1fr;gap:1.5rem}
+  .log-entry{padding:1.5rem 0}
+
+  /* Landscape frame */
+  .landscape-section{padding:0 1.25rem 2rem}
+  .landscape-frame{max-height:260px}
+
+  /* Reels */
+  .reels-section{padding:0 1.25rem 2.5rem}
+  .reels-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
+
+  /* Agent */
+  .agent-overlay{padding:.5rem}
+  .agent-panel{height:90svh;max-height:520px;border-radius:10px}
+
+  /* Floating UI */
+  .music-bar{left:.75rem;bottom:.75rem;padding:.4rem .7rem;font-size:10px}
+  .chat-float{bottom:.75rem;right:.75rem;padding:.5rem 1rem;gap:8px}
+  .chat-float-label{font-size:10.5px}
+
+  /* Footer */
   footer{padding:1.25rem;flex-direction:column;gap:.4rem;text-align:center}
-  .thoughts-wrap{padding:3rem 1.25rem}
-  .agent-overlay{padding:.75rem}
-  .about-photo-section{grid-template-columns:1fr;padding:0 1.25rem 3rem}
-  .landscape-section,.reels-section{padding:0 1.25rem 2.5rem}
-  .reels-grid{grid-template-columns:repeat(2,1fr)}
-  .music-bar{left:1rem;bottom:1rem}
-  .chat-float{bottom:1rem;right:1rem}
-  .novapad-grid{grid-template-columns:repeat(3,1fr)}
 }
+
+/* ── 600px: Large phone ── */
+@media(max-width:600px){
+
+  /* Nav — collapse tabs to icons if overflow */
+  nav{flex-wrap:nowrap;overflow:hidden}
+  .nav-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav-tabs::-webkit-scrollbar{display:none}
+  .nav-tab{white-space:nowrap;padding:.3rem .55rem;font-size:10px}
+
+  /* Hero */
+  .hero{padding:5.5rem 1rem 3rem}
+  .hero h1{font-size:clamp(2.2rem,9vw,3.2rem)}
+  .hero-actions{flex-direction:column;align-items:center;gap:.75rem;width:100%}
+  .btn-pill{width:100%;max-width:280px;text-align:center}
+
+  /* Sections */
+  .section,.section-wide{padding:2.5rem 1rem}
+
+  /* About hero */
+  .about-page-hero{padding:5.5rem 1rem 2.5rem}
+
+  /* Project cards */
+  .project-grid{gap:2.5rem}
+  .project-card{gap:1.25rem}
+  .code-canvas{font-size:10px;padding:1rem}
+  .project-title{font-size:clamp(1.35rem,5.5vw,1.75rem)}
+  .project-tags{gap:.3rem}
+  .project-tag{font-size:9px;padding:2px 8px}
+  .project-links{gap:1rem;font-size:10px}
+
+  /* NovaPad */
+  .novapad-grid{grid-template-columns:repeat(4,1fr);gap:7px}
+  .nova-pad{height:54px}
+
+  /* Reels */
+  .reels-grid{grid-template-columns:1fr 1fr;gap:.6rem}
+
+  /* Skills */
+  .skill-rect-cat{font-size:10px}
+  .skill-rect-vals{font-size:12px}
+
+  /* Edu */
+  .edu-rect-name{font-size:13px}
+  .edu-rect-sub{font-size:10px}
+
+  /* Timeline */
+  .timeline-node{padding-left:1.25rem}
+  .node-role{font-size:clamp(1.2rem,5vw,1.5rem)}
+  .node-summary{font-size:13px}
+
+  /* Log entries */
+  .log-header{flex-direction:column;gap:3px}
+  .log-body{font-size:13.5px}
+
+  /* Thoughts */
+  .thoughts-wrap{padding:2.5rem 1rem}
+  .thought-text{font-size:13.5px}
+
+  /* Agent */
+  .agent-panel{height:92svh;max-height:none;border-radius:8px}
+  .cli-body{font-size:12px;padding:1rem}
+  .cli-chips{gap:.4rem;padding:.4rem 1rem}
+  .cli-chip{font-size:10px;padding:4px 10px}
+  .cli-input-row{padding:.75rem 1rem}
+  .cli-input{font-size:12px}
+  .cli-input-label{font-size:12px}
+
+  /* Floating UI */
+  .music-bar{left:.5rem;bottom:.5rem;font-size:9.5px;gap:.35rem;padding:.35rem .6rem}
+  .chat-float{right:.5rem;bottom:.5rem;padding:.45rem .85rem;gap:7px}
+  .chat-float-label{font-size:10px}
+  .chat-float-dot{width:5px;height:5px}
+}
+
+/* ── 480px: Standard phone ── */
 @media(max-width:480px){
-  .nav-tabs .nav-tab{padding:.3rem .5rem;font-size:10.5px}
+
+  /* Nav */
+  .nav-tab{font-size:9.5px;padding:.28rem .45rem}
+
+  /* Hero */
+  .hero h1{font-size:clamp(2rem,9.5vw,2.8rem)}
+  .hero-bio{font-size:13.5px}
+
+  /* Project cards — bigger visual, readable */
+  .project-visual{aspect-ratio:16/10}
+  .code-canvas{font-size:9.5px}
+  .project-index{font-size:9.5px}
+  .project-title{font-size:clamp(1.25rem,6vw,1.55rem)}
+  .project-description{font-size:12.5px;line-height:1.75}
+
+  /* Reels */
   .reels-grid{grid-template-columns:1fr}
+
+  /* NovaPad — 3 per row on small phone */
+  .novapad-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .nova-pad{height:56px}
+
+  /* About photo — smaller on tiny screens */
+  .photo-frame{max-width:160px}
+
+  /* Prose */
+  .prose{font-size:.92rem}
+
+  /* Chapter */
+  .chapter{padding:1.75rem 0;gap:.5rem}
+  .chapter-text{font-size:.92rem;line-height:1.9}
+
+  /* Timeline */
+  .node-role{font-size:1.2rem}
+  .node-summary{font-size:12.5px}
+
+  /* Contact */
+  .ct-rect a{font-size:12px;word-break:break-all}
+
+  /* Media meta */
+  .media-meta-box h4{font-size:13.5px}
+  .media-meta-box p{font-size:12.5px}
+}
+
+/* ── 380px: Very small phones ── */
+@media(max-width:380px){
+
+  .nav-tab{font-size:9px;padding:.25rem .4rem}
+  .nav-logo{font-size:.85rem}
+
+  .hero{padding:5rem .85rem 2.5rem}
+  .hero h1{font-size:clamp(1.85rem,9.5vw,2.4rem)}
+  .section,.section-wide{padding:2rem .85rem}
+
+  .about-page-hero{padding:5rem .85rem 2rem}
+  .about-chapters{padding:0 .85rem 2.5rem}
+
+  .novapad-grid{grid-template-columns:repeat(3,1fr);gap:5px}
+  .nova-pad{height:50px;font-size:8.5px}
+  .novapad-wrapper{padding:1.5rem .85rem}
+
+  .project-title{font-size:1.2rem}
+  .project-tag{font-size:8.5px;padding:2px 6px}
+
+  .music-bar{display:none} /* hide on very tiny to avoid overlap */
+  .chat-float{right:.4rem;bottom:.4rem;padding:.4rem .75rem}
 }
 </style>
 </head>
@@ -849,7 +1077,7 @@ footer p{font-family:var(--mono);font-size:10.5px;color:var(--muted2)}
 </div>
 
 <div class="page" id="page-personal">
-  <div class="hero" style="min-height:50vh;padding-bottom:2rem">
+  <div class="hero" style="min-height:50vh;padding-top:7rem;padding-bottom:2rem">
     <h1 class="fadein" style="font-family:var(--serif);font-size:clamp(2.5rem,6vw,5rem);font-weight:400;line-height:1.05;letter-spacing:-.025em;margin-bottom:1.25rem">Creative labs, media mixing,<br><em style="color:var(--muted)">and code playground.</em></h1>
     <p class="hero-description fadein">An unfiltered sandbox of side interests, interactive experiments, video work, and system logs.</p>
   </div>

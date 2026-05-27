@@ -8,24 +8,39 @@ export default async function handler(req, res) {
   const { q, system } = req.body;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY, // Safely pulled from Vercel env variables
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022', // Standard production model string
-        max_tokens: 350,
-        system: system,
-        messages: [{ role: 'user', content: q }]
-      })
-    });
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [
+                {
+                  text: `${system}\n\nUser: ${q}`
+                }
+              ]
+            }
+          ],
+          generationConfig: {
+            maxOutputTokens: 350,
+            temperature: 0.7
+          }
+        })
+      }
+    );
 
     const data = await response.json();
+
     return res.status(response.status).json(data);
+
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to contact Anthropic API' });
+    return res.status(500).json({
+      error: 'Failed to contact Gemini API'
+    });
   }
 }
